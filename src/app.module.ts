@@ -9,9 +9,14 @@ import { MenusModule } from './menus/menus.module';
 import { UsersController } from './users/users.controller';
 import { RestaurantsController } from './restaurants/restaurants.controller';
 import { UsersService } from './users/users.service';
+import { UsersEntity } from './users/users.entity';
+import { RestaurantsEntity } from './restaurants/restaurants.entity';
+import { MenusEntity } from './menus/menus.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([UsersEntity, RestaurantsEntity, MenusEntity]),
+
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -19,9 +24,10 @@ import { UsersService } from './users/users.service';
       username: 'postgres',
       password: 'password',
       database: 'menu',
-      entities: [],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: false,
+      autoLoadEntities: true,
     }),
     UsersModule,
     RestaurantsModule,
