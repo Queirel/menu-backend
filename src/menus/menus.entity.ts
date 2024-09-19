@@ -11,7 +11,7 @@ import {
 @Entity({ name: 'menus' })
 export class MenusEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ length: 50 })
   name: string;

@@ -13,7 +13,7 @@ import {
 @Entity({ name: 'restaurants' })
 export class RestaurantsEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ length: 50 })
   name: string;

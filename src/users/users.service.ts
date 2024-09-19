@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from './users.entity';
 import { Repository } from 'typeorm';
@@ -16,9 +20,13 @@ export class UsersService {
     const userFound = await this.usersRepository.findOne({
       where: { email: user.email },
     });
+    // if (userFound) {
+    //   return new HttpException('User alredy exists', HttpStatus.CONFLICT);
+    // }
     if (userFound) {
-      return new HttpException('User alredy exists', HttpStatus.CONFLICT);
+      throw new ConflictException(`User ${user.email} alredy exists`);
     }
+
     const newUser = this.usersRepository.create(user);
     return this.usersRepository.save(newUser);
   }
@@ -32,7 +40,7 @@ export class UsersService {
       where: { id },
     });
     if (!userFound) {
-      return new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException(`User ${id} not found`);
     }
     return userFound;
   }
@@ -41,8 +49,11 @@ export class UsersService {
     const userFound = await this.usersRepository.findOne({
       where: { id },
     });
+    // if (!userFound) {
+    //   return new HttpException('User not found', HttpStatus.NOT_FOUND);
+    // }
     if (!userFound) {
-      return new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException(`User ${id} not found`);
     }
     return this.usersRepository.delete({ id });
   }
@@ -52,7 +63,7 @@ export class UsersService {
       where: { id },
     });
     if (!userFound) {
-      return new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException(`User ${id} not found`);
     }
     return this.usersRepository.update({ id }, user);
   }
