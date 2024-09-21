@@ -12,18 +12,24 @@ import { UsersService } from './users/users.service';
 import { UsersEntity } from './users/users.entity';
 import { RestaurantsEntity } from './restaurants/restaurants.entity';
 import { MenusEntity } from './menus/menus.entity';
+import { ConfigModule } from '@nestjs/config';
+import { EnvConfig } from '../config/env.config';
+import { JoiValidationSchema } from '../config/joi.validation';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [EnvConfig],
+      validationSchema: JoiValidationSchema,
+    }),
     TypeOrmModule.forFeature([UsersEntity, RestaurantsEntity, MenusEntity]),
-
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'password',
-      database: 'menu',
+      host: process.env.POSTGRES_HOST,
+      port: +process.env.POSTGRES_PORT,
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: false,
