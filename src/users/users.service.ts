@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -58,13 +59,32 @@ export class UsersService {
     return this.usersRepository.delete({ id });
   }
 
-  async updateUser(id: number, user: UpdateUserDto) {
-    const userFound = await this.usersRepository.findOne({
-      where: { id },
+  async updateUser(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepository.preload({
+      id,
+      ...updateUserDto,
     });
-    if (!userFound) {
-      throw new NotFoundException(`User ${id} not found`);
+    if (!user) throw new NotFoundException(`User ${id} not found`);
+
+    try {
+      await this.usersRepository.save(user);
+      return user;
+    } catch (error) {
+      this.handleDBExceptions(error);
     }
-    return this.usersRepository.update({ id }, user);
+    //   const userFound = await this.usersRepository.findOne({
+    //     where: { id },
+    //   });
+    //   if (!userFound) {
+    //     throw new NotFoundException(`User ${id} not found`);
+    //   }
+    //   return this.usersRepository.update({ id }, updateUserDto);
+    // }
+  }
+
+  private handleDBExceptions(error: any) {
+    if (error.code == '23505') {
+      throw new BadRequestException(error.detail);
+    }
   }
 }

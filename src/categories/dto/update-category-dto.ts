@@ -1,7 +1,7 @@
-import { CreateMenutDto } from './create-menu-dto';
+import { CreateCategoryDto } from './create-category-dto';
 import { PartialType } from '@nestjs/mapped-types';
 
-export class UpdateMenuDto extends PartialType(CreateMenutDto) {
+export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
   // @IsString()
   // @IsOptional()
   // @MinLength(2)

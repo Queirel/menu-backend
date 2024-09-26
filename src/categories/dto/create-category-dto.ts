@@ -6,7 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateMenutDto {
+export class CreateCategoryDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
@@ -20,8 +20,8 @@ export class CreateMenutDto {
   description: string;
 
   @IsString()
-  @IsOptional() //TODO
+  @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  qr: string;
+  image: string;
 }

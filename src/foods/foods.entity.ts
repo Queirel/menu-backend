@@ -1,28 +1,35 @@
 import { CategoriesEntity } from 'src/categories/categories.entity';
-import { RestaurantsEntity } from 'src/restaurants/restaurants.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'menus' })
-export class MenusEntity {
+@Entity({ name: 'foods' })
+export class FoodsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'text' })
   name: string;
 
+  @Column({ type: 'text' })
+  food: string;
+
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ type: 'text', nullable: true }) //TODO
-  qr: string;
+  @Column({ type: 'numeric', default: 0 })
+  price: number;
+
+  @Column({ type: 'numeric', default: 0 })
+  offer: number;
+
+  @Column({ type: 'text', nullable: true })
+  image: string;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
@@ -33,9 +40,6 @@ export class MenusEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => RestaurantsEntity, (restaurants) => restaurants.menus)
-  restaurants: RestaurantsEntity;
-
-  @OneToMany(() => CategoriesEntity, (categories) => categories.menus)
-  categories: CategoriesEntity[];
+  @ManyToOne(() => CategoriesEntity, (categories) => categories.foods)
+  categories: CategoriesEntity;
 }
