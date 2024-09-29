@@ -17,11 +17,11 @@ export class CreateMenutDto {
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  description: string;
+  description?: string;
 
   @IsString()
   @IsOptional() //TODO
   @MinLength(2)
   @MaxLength(30)
-  qr: string;
+  qr?: string;
 }

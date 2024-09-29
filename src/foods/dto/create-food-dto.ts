@@ -18,13 +18,13 @@ export class CreateFoodDto {
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  description: string;
+  description?: string;
 
   @IsString()
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  image: string;
+  image?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -42,5 +42,5 @@ export class CreateFoodDto {
   @IsOptional()
   @MinLength(1)
   @MaxLength(10)
-  offer: number;
+  offer?: number;
 }

@@ -18,16 +18,18 @@ export class CreateRestaurantDto {
   @IsOptional()
   @MinLength(7)
   @MaxLength(50)
-  web: string;
+  web?: string;
 
   @IsString()
   @IsOptional()
   @MinLength(5)
   @MaxLength(30)
-  phone: string;
+  phone?: string;
 
   @IsEmail()
   @IsOptional()
   @MaxLength(50)
-  email: string;
+  email?: string;
+
+  // maps //TODO
 }

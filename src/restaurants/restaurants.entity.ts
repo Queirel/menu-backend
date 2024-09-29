@@ -36,6 +36,8 @@ export class RestaurantsEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
+  // maps //TODO
+
   @ManyToOne(() => UsersEntity, (users) => users.restaurants)
   users: UsersEntity;
 

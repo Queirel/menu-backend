@@ -17,11 +17,11 @@ export class CreateCategoryDto {
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  description: string;
+  description?: string;
 
   @IsString()
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
-  image: string;
+  image?: string;
 }
