@@ -19,6 +19,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
 import { CategoriesEntity } from './categories/categories.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { CategoriesEntity } from './categories/categories.entity';
     RestaurantsModule,
     MenusModule,
     CategoriesModule,
+    AuthModule,
   ],
   controllers: [
     CategoriesController,
