@@ -33,7 +33,7 @@ export class CategoriesEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => FoodsEntity, (foods) => foods.categories)
+  @OneToMany(() => FoodsEntity, (foods) => foods.categories, {})
   foods: FoodsEntity[];
 
   @ManyToOne(() => MenusEntity, (menus) => menus.categories)
