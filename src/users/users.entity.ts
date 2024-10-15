@@ -13,22 +13,22 @@ export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 50, type: 'text' })
+  @Column({ length: 50 })
   name: string;
 
-  @Column({ length: 50, type: 'text' })
+  @Column({ length: 50 })
   lastname: string;
 
-  @Column({ length: 100, type: 'text' })
-  paswsword: string;
+  @Column({ length: 100 })
+  password: string;
 
-  @Column({ nullable: true, type: 'text' })
+  @Column({ nullable: true })
   phone: string;
 
-  @Column({ unique: true, type: 'text' })
+  @Column({ unique: true })
   email: string;
 
-  @Column({ default: true, type: 'boolean' })
+  @Column({ default: true })
   isActive: boolean;
 
   @CreateDateColumn()
