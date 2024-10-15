@@ -19,7 +19,7 @@ export class UsersEntity {
   @Column({ length: 50 })
   lastname: string;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, select: false })
   password: string;
 
   @Column({ nullable: true })

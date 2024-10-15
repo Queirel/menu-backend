@@ -3,14 +3,15 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  UnauthorizedException,
   //   UnauthorizedException,
 } from '@nestjs/common';
-// import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from 'src/users/users.entity';
 import { SignupDto } from './dto/signup-dto';
+import { LoginDto } from './dto/login-dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -40,14 +41,17 @@ export class AuthService {
     return this.usersRepository.save(newUser);
   }
 
-  //   async signIn(username: string, pass: string): Promise<any> {
-  //     const user = await this.usersService.findOne(username);
-  //     if (user?.password !== pass) {
-  //       throw new UnauthorizedException();
-  //     }
-  //     const { password, ...result } = user;
-  //     // TODO: Generate a JWT and return it here
-  //     // instead of the user object
-  //     return result;
-  //   }
+  async login(user: LoginDto) {
+    const { password, email } = user;
+    const userFound = await this.usersRepository.findOne({
+      where: { email },
+    });
+
+    if (!userFound) {
+      throw new UnauthorizedException('email or password are not valid');
+    }
+
+    if (bcrypt.compareSync(password, user.password)) {
+    }
+  }
 }
