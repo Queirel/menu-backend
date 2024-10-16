@@ -9,4 +9,6 @@ export const EnvConfig: any = () => ({
   postgresUsername: process.env.POSTGRES_USERNAME || 'postgres',
   postgresPassword: process.env.POSTGRES_PASSWORD || 'password',
   postgresDatabase: process.env.POSTGRES_DB || 'menu',
+
+  JwtSecret: process.env.JWT_SECRET || 'elsecreto',
 });
