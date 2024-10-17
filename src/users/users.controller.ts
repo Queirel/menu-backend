@@ -18,7 +18,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   getUsers(): Promise<UsersEntity[]> {
     return this.usersService.getUsers();
   }
