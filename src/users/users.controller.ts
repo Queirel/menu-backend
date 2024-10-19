@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { UsersEntity } from './users.entity';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -19,7 +20,8 @@ export class UsersController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  getUsers(): Promise<UsersEntity[]> {
+  getUsers(@GetUser('id') userId): Promise<UsersEntity[]> {
+    return userId;
     return this.usersService.getUsers();
   }
 
