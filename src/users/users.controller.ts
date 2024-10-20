@@ -6,23 +6,22 @@ import {
   Param,
   ParseIntPipe,
   Patch,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersEntity } from './users.entity';
 import { UpdateUserDto } from './dto/update-user-dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
-  getUsers(@GetUser('id') userId): Promise<UsersEntity[]> {
-    return userId;
-    return this.usersService.getUsers();
+  @Auth(ValidRoles.superUser)
+  getUsers(@GetUser() user: UsersEntity) {
+    return { ok: true, user };
   }
 
   @Get(':id')

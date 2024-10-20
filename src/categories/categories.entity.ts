@@ -36,6 +36,6 @@ export class CategoriesEntity {
   @OneToMany(() => FoodsEntity, (foods) => foods.categories, {})
   foods: FoodsEntity[];
 
-  @ManyToOne(() => MenusEntity, (menus) => menus.categories)
+  @ManyToOne(() => MenusEntity, (menus) => menus.categories, { eager: true })
   menus: MenusEntity;
 }

@@ -38,7 +38,7 @@ export class RestaurantsEntity {
 
   // maps //TODO
 
-  @ManyToOne(() => UsersEntity, (users) => users.restaurants)
+  @ManyToOne(() => UsersEntity, (users) => users.restaurants, { eager: true })
   users: UsersEntity;
 
   @OneToMany(() => MenusEntity, (menus) => menus.restaurants)
