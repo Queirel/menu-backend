@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { FoodsEntity } from 'src/foods/foods.entity';
 import { MenusEntity } from 'src/menus/menus.entity';
 import {
@@ -12,18 +13,23 @@ import {
 
 @Entity({ name: 'categories' })
 export class CategoriesEntity {
+  @ApiProperty({})
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty({})
   @Column({ type: 'text' })
   name: string;
 
+  @ApiProperty({})
   @Column({ type: 'text', nullable: true })
   description: string;
 
+  @ApiProperty({})
   @Column({ type: 'text', nullable: true })
   image: string;
 
+  @ApiProperty({})
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 

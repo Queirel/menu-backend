@@ -15,13 +15,15 @@ import { UpdateRestaurantDto } from './dto/update-restaurant-dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { UsersEntity } from 'src/users/users.entity';
-
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+@ApiTags('Restaurants')
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private restaurantsService: RestaurantsService) {}
 
   @Post()
   @Auth()
+  @ApiResponse({})
   createRestaurant(
     @Body() newRestaurant: CreateRestaurantDto,
     @GetUser() user: UsersEntity,
@@ -30,21 +32,25 @@ export class RestaurantsController {
   }
 
   @Get()
+  @ApiResponse({})
   getRestaurants(): Promise<RestaurantsEntity[]> {
     return this.restaurantsService.getRestaurants();
   }
 
   @Get(':id')
+  @ApiResponse({})
   getRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantsService.getRestaurant(id);
   }
 
   @Delete(':id')
+  @ApiResponse({})
   deleteRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantsService.deleteRestaurant(id);
   }
 
   @Patch(':id')
+  @ApiResponse({})
   updateRestaurant(
     @Param('id', ParseIntPipe) id: number,
     @Body() restaurant: UpdateRestaurantDto,

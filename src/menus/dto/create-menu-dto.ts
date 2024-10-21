@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsOptional,
@@ -7,18 +8,21 @@ import {
 } from 'class-validator';
 
 export class CreateMenutDto {
+  @ApiProperty({})
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(30)
   name: string;
 
+  @ApiProperty({})
   @IsString()
   @IsOptional()
   @MinLength(2)
   @MaxLength(30)
   description?: string;
 
+  @ApiProperty({})
   @IsString()
   @IsOptional() //TODO
   @MinLength(2)
