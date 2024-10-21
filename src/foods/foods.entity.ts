@@ -40,8 +40,8 @@ export class FoodsEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => CategoriesEntity, (categories) => categories.foods, {
+  @ManyToOne(() => CategoriesEntity, (category) => category.food, {
     eager: true,
   })
-  categories: CategoriesEntity;
+  category: CategoriesEntity;
 }

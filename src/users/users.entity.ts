@@ -55,6 +55,6 @@ export class UsersEntity {
     this.checkFieldsBeforeInsert();
   }
 
-  @OneToMany(() => RestaurantsEntity, (restaurants) => restaurants.users)
-  restaurants: RestaurantsEntity[];
+  @OneToMany(() => RestaurantsEntity, (restaurant) => restaurant.user)
+  restaurant: RestaurantsEntity[];
 }

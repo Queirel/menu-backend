@@ -12,14 +12,21 @@ import { RestaurantsService } from './restaurants.service';
 import { RestaurantsEntity } from './restaurants.entity';
 import { CreateRestaurantDto } from './dto/create-restaurant-dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant-dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { UsersEntity } from 'src/users/users.entity';
 
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private restaurantsService: RestaurantsService) {}
 
   @Post()
-  createRestaurant(@Body() newRestaurant: CreateRestaurantDto) {
-    return this.restaurantsService.createRestaurant(newRestaurant);
+  @Auth()
+  createRestaurant(
+    @Body() newRestaurant: CreateRestaurantDto,
+    @GetUser() user: UsersEntity,
+  ) {
+    return this.restaurantsService.createRestaurant(newRestaurant, user);
   }
 
   @Get()

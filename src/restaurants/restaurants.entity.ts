@@ -27,7 +27,7 @@ export class RestaurantsEntity {
   @Column({ nullable: true })
   web: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
   @CreateDateColumn()
@@ -38,9 +38,9 @@ export class RestaurantsEntity {
 
   // maps //TODO
 
-  @ManyToOne(() => UsersEntity, (users) => users.restaurants, { eager: true })
-  users: UsersEntity;
+  @ManyToOne(() => UsersEntity, (user) => user.restaurant, { eager: true })
+  user: UsersEntity;
 
-  @OneToMany(() => MenusEntity, (menus) => menus.restaurants)
-  menus: MenusEntity[];
+  @OneToMany(() => MenusEntity, (menu) => menu.restaurant)
+  menu: MenusEntity[];
 }

@@ -4,6 +4,7 @@ import { UpdateRestaurantDto } from './dto/update-restaurant-dto';
 import { RestaurantsEntity } from './restaurants.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UsersEntity } from 'src/users/users.entity';
 
 @Injectable()
 export class RestaurantsService {
@@ -12,14 +13,17 @@ export class RestaurantsService {
     private readonly restaurantsRepository: Repository<RestaurantsEntity>,
   ) {}
 
-  createRestaurant(restaurant: CreateRestaurantDto) {
+  createRestaurant(restaurant: CreateRestaurantDto, user: UsersEntity) {
     // const restaurantFound = await this.restaurantsRepository.findOne({
     //   where: { email: restaurant.email },
     // });
     // if (restaurantFound) {
     //   return new HttpException('Restaurant alredy exists', HttpStatus.CONFLICT);
     // }
-    const newRestaurant = this.restaurantsRepository.create(restaurant);
+    const newRestaurant = this.restaurantsRepository.create({
+      ...restaurant,
+      user,
+    });
     return this.restaurantsRepository.save(newRestaurant);
   }
 
