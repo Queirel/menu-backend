@@ -13,23 +13,40 @@ import {
 
 @Entity({ name: 'menus' })
 export class MenusEntity {
-  @ApiProperty({})
-  @PrimaryGeneratedColumn()
+  @ApiProperty({
+    example: 'cd533345-f1f3-48c9-a62e-7dc2da50c8f8',
+    description: 'Menu uuid',
+    uniqueItems: true,
+  })
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Dinner',
+    description: 'Menu name',
+    uniqueItems: false,
+  })
   @Column({ type: 'text' })
   name: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Dinner offer',
+    description: 'Menu description',
+    uniqueItems: false,
+  })
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'Menu qr code',
+    uniqueItems: true,
+  })
   @Column({ type: 'text', nullable: true }) //TODO
   qr: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'If the menu is active',
+  })
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 

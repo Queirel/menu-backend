@@ -11,35 +11,64 @@ import {
 
 @Entity({ name: 'foods' })
 export class FoodsEntity {
-  @ApiProperty({})
-  @PrimaryGeneratedColumn()
+  @ApiProperty({
+    example: 'cd533345-f1f3-48c9-a62e-7dc2da50c8f8',
+    description: 'Food uuid',
+    uniqueItems: true,
+  })
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Pizza',
+    description: 'Food name',
+    uniqueItems: false,
+  })
   @Column({ type: 'text' })
   name: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Pasta',
+    description: 'Food type',
+    uniqueItems: false,
+  })
   @Column({ type: 'text' })
   food: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Italian pasta',
+    description: 'Food description',
+    uniqueItems: false,
+  })
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: '$27.00',
+    description: 'Food price',
+    uniqueItems: false,
+  })
   @Column({ type: 'numeric', default: 0 })
   price: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: '$15.00',
+    description: 'Food offer',
+    uniqueItems: false,
+  })
   @Column({ type: 'numeric', default: 0 })
   offer: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'Food image',
+    uniqueItems: false,
+  })
   @Column({ type: 'text', nullable: true })
   image: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'If the food is active',
+  })
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 

@@ -13,27 +13,49 @@ import {
 
 @Entity({ name: 'restaurants' })
 export class RestaurantsEntity {
-  @ApiProperty({})
-  @PrimaryGeneratedColumn()
+  @ApiProperty({
+    example: 'cd533345-f1f3-48c9-a62e-7dc2da50c8f8',
+    description: 'Restaurant uuid',
+    uniqueItems: true,
+  })
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'The Resto',
+    description: 'Restaurant name',
+    uniqueItems: false,
+  })
   @Column({ length: 50 })
   name: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: '+549116587845',
+    description: 'Restaurant phone',
+    uniqueItems: true,
+  })
   @Column({ nullable: true })
   phone: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'theresto@resto.com',
+    description: 'Restaurant email',
+    uniqueItems: true,
+  })
   @Column({ nullable: true })
   email: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'theresto.com',
+    description: 'Restaurant website',
+    uniqueItems: true,
+  })
   @Column({ nullable: true })
   web: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'If the restaurant is active',
+  })
   @Column({ default: true })
   isActive: boolean;
 

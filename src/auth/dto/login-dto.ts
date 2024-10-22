@@ -9,7 +9,12 @@ import {
 } from 'class-validator';
 
 export class LoginDto {
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'Login password',
+    nullable: false,
+    minLength: 8,
+    maxLength: 100,
+  })
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
@@ -20,9 +25,15 @@ export class LoginDto {
   // })
   password: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'Login email',
+    nullable: false,
+    minLength: 8,
+    maxLength: 50,
+  })
   @IsEmail()
   @IsNotEmpty()
+  @MinLength(8)
   @MaxLength(50)
   email: string;
 }

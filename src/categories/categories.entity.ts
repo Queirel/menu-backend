@@ -13,23 +13,40 @@ import {
 
 @Entity({ name: 'categories' })
 export class CategoriesEntity {
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'cd533345-f1f3-48c9-a62e-7dc2da50c8f8',
+    description: 'Category uuid',
+    uniqueItems: true,
+  })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Breakfast',
+    description: 'Category name',
+    uniqueItems: false,
+  })
   @Column({ type: 'text' })
   name: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    example: 'Todays enu breakfast',
+    description: 'Category description',
+    uniqueItems: false,
+  })
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'Category image',
+    uniqueItems: false,
+  })
   @Column({ type: 'text', nullable: true })
   image: string;
 
-  @ApiProperty({})
+  @ApiProperty({
+    description: 'If the category is active',
+  })
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
