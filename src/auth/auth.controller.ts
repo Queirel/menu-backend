@@ -14,20 +14,38 @@ export class AuthController {
 
   // @HttpCode(HttpStatus.OK)
   @Post('signup')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User created',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden. Token related.' })
   signUp(@Body() signupDto: SignupDto) {
     return this.authService.signUp(signupDto);
   }
 
   @Post('login')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User logged in',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   loginUser(@Body() loginUserDto: LoginDto) {
     return this.authService.login(loginUserDto);
   }
 
   @Get('check-status')
   @Auth()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User status checked',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   checkAuthStatus(@GetUser() user: UsersEntity) {
     return this.authService.checkAuthStatus(user);
   }

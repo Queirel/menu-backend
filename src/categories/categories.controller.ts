@@ -20,31 +20,61 @@ export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
 
   @Post()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Category created',
+    type: CategoriesEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   createCategory(@Body() newCategory: CreateCategoryDto) {
     return this.categoriesService.createCategory(newCategory);
   }
 
   @Get()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Categories obtained',
+    type: Promise<CategoriesEntity[]>,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getCategories(): Promise<CategoriesEntity[]> {
     return this.categoriesService.getCategories();
   }
 
   @Get(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Category obtained',
+    type: CategoriesEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.getCategory(id);
   }
 
   @Delete(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Category deleted',
+    type: CategoriesEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.deleteCategory(id);
   }
 
   @Patch(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Category updated',
+    type: CategoriesEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
     @Body() categories: UpdateCategoryDto,

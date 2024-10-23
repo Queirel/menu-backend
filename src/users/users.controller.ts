@@ -21,25 +21,49 @@ export class UsersController {
 
   @Get()
   @Auth(ValidRoles.superUser)
-  @ApiResponse({})
-  getUsers(@GetUser() user: UsersEntity) {
+  @ApiResponse({
+    status: 201,
+    description: 'Users obtained',
+    type: Promise<UsersEntity[]>,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  getUsers(@GetUser() user: UsersEntity[]) {
     return { ok: true, user };
   }
 
   @Get(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User obtained',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getUser(id);
   }
 
   @Delete(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User deleted',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.deleteUser(id);
   }
 
   @Patch(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'User updated',
+    type: UsersEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() user: UpdateUserDto,

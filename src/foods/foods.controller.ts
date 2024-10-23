@@ -19,31 +19,61 @@ export class FoodsController {
   constructor(private foodsService: FoodsService) {}
 
   @Post()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Food created',
+    type: FoodsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   createFood(@Body() newFood: CreateFoodDto) {
     return this.foodsService.createFood(newFood);
   }
 
   @Get()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Foods obtained',
+    type: FoodsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getFoods(): Promise<FoodsEntity[]> {
     return this.foodsService.getFoods();
   }
 
   @Get(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Food obtained',
+    type: FoodsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getFood(@Param('id', ParseIntPipe) id: number) {
     return this.foodsService.getFood(id);
   }
 
   @Delete(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Food deleted',
+    type: FoodsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   deleteFood(@Param('id', ParseIntPipe) id: number) {
     return this.foodsService.deleteFood(id);
   }
 
   @Patch(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Food updated',
+    type: FoodsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   updateFood(
     @Param('id', ParseIntPipe) id: number,
     @Body() foods: UpdateFoodDto,

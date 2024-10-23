@@ -23,7 +23,13 @@ export class RestaurantsController {
 
   @Post()
   @Auth()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Restaurant created',
+    type: RestaurantsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   createRestaurant(
     @Body() newRestaurant: CreateRestaurantDto,
     @GetUser() user: UsersEntity,
@@ -32,25 +38,49 @@ export class RestaurantsController {
   }
 
   @Get()
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Restaurants obtained',
+    type: Promise<RestaurantsEntity[]>,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getRestaurants(): Promise<RestaurantsEntity[]> {
     return this.restaurantsService.getRestaurants();
   }
 
   @Get(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Restaurant obtained',
+    type: RestaurantsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantsService.getRestaurant(id);
   }
 
   @Delete(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Restaurant deleted',
+    type: RestaurantsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   deleteRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantsService.deleteRestaurant(id);
   }
 
   @Patch(':id')
-  @ApiResponse({})
+  @ApiResponse({
+    status: 201,
+    description: 'Restaurant updated',
+    type: RestaurantsEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   updateRestaurant(
     @Param('id', ParseIntPipe) id: number,
     @Body() restaurant: UpdateRestaurantDto,
