@@ -21,6 +21,7 @@ import { CategoriesService } from './categories/categories.service';
 import { CategoriesEntity } from './categories/categories.entity';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
