@@ -21,7 +21,8 @@ import { CategoriesService } from './categories/categories.service';
 import { CategoriesEntity } from './categories/categories.entity';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
-import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -47,6 +48,10 @@ import { FilesModule } from './files/files.module';
       logging: false,
       autoLoadEntities: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
+
     UsersModule,
     RestaurantsModule,
     MenusModule,

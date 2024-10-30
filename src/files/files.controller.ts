@@ -47,13 +47,21 @@ export class FilesController {
       }),
     }),
   )
-  uploadProductImage(@UploadedFile() file: Express.Multer.File) {
+  uploadProductImage(
+    @UploadedFile() file: Express.Multer.File,
+
+    // new ParseFilePipe({
+    //   validators: [
+    //     new MaxFileSizeValidator({ maxSize: 1000 }),
+    //     new FileTypeValidator({ fileType: 'png' }),
+    //   ],
+    // }),
+  ) {
     if (!file) {
       throw new BadRequestException('Make sure that the file is an image');
     }
-
     // const secureUrl = `${ file.filename }`;
-    const secureUrl = `${this.configService.get('HOST_API')}/files/product/${file.filename}`;
+    const secureUrl = `${this.configService.get('SERVER_HOST')}/files/product/${file.filename}`;
 
     return { secureUrl };
   }
