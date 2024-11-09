@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -57,7 +56,7 @@ export class RestaurantsController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  getRestaurant(@Param('id', ParseIntPipe) id: number) {
+  getRestaurant(@Param('id') id: string) {
     return this.restaurantsService.getRestaurant(id);
   }
 
@@ -69,7 +68,7 @@ export class RestaurantsController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  deleteRestaurant(@Param('id', ParseIntPipe) id: number) {
+  deleteRestaurant(@Param('id') id: string) {
     return this.restaurantsService.deleteRestaurant(id);
   }
 
@@ -82,7 +81,7 @@ export class RestaurantsController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   updateRestaurant(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() restaurant: UpdateRestaurantDto,
   ) {
     return this.restaurantsService.updateRestaurant(id, restaurant);

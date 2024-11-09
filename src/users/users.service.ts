@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from './users.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user-dto';
-
+import { validate as isUUID } from 'uuid';
 @Injectable()
 export class UsersService {
   constructor(
@@ -19,17 +19,24 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async getUser(id: number) {
+  async getUser(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const userFound = await this.usersRepository.findOne({
       where: { id },
     });
+
     if (!userFound) {
       throw new NotFoundException(`User ${id} not found`);
     }
     return userFound;
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const userFound = await this.usersRepository.findOne({
       where: { id },
     });
@@ -42,7 +49,10 @@ export class UsersService {
     return this.usersRepository.delete({ id });
   }
 
-  async updateUser(id: number, updateUserDto: UpdateUserDto) {
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const user = await this.usersRepository.preload({
       id,
       ...updateUserDto,

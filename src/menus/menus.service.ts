@@ -4,6 +4,7 @@ import { MenusEntity } from './menus.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMenutDto } from './dto/create-menu-dto';
+import { validate as isUUID } from 'uuid';
 
 @Injectable()
 export class MenusService {
@@ -27,7 +28,10 @@ export class MenusService {
     return this.menusRepository.find();
   }
 
-  async getMenu(id: number) {
+  async getMenu(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const menuFound = await this.menusRepository.findOne({
       where: { id },
     });
@@ -37,7 +41,10 @@ export class MenusService {
     return menuFound;
   }
 
-  async deleteMenu(id: number) {
+  async deleteMenu(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const menuFound = await this.menusRepository.findOne({
       where: { id },
     });
@@ -47,7 +54,10 @@ export class MenusService {
     return this.menusRepository.delete({ id });
   }
 
-  async updateMenu(id: number, menu: UpdateMenuDto) {
+  async updateMenu(id: string, menu: UpdateMenuDto) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const menuFound = await this.menusRepository.findOne({
       where: { id },
     });

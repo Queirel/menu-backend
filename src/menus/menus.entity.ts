@@ -19,7 +19,7 @@ export class MenusEntity {
     uniqueItems: true,
   })
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ApiProperty({
     example: 'Dinner',

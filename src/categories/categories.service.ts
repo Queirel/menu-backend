@@ -4,6 +4,7 @@ import { CategoriesEntity } from './categories.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create-category-dto';
+import { validate as isUUID } from 'uuid';
 
 @Injectable()
 export class CategoriesService {
@@ -21,7 +22,10 @@ export class CategoriesService {
     return this.categoriesRepository.find();
   }
 
-  async getCategory(id: number) {
+  async getCategory(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const categoryFound = await this.categoriesRepository.findOne({
       where: { id },
     });
@@ -31,7 +35,7 @@ export class CategoriesService {
     return categoryFound;
   }
 
-  async deleteCategory(id: number) {
+  async deleteCategory(id: string) {
     const categoryFound = await this.categoriesRepository.findOne({
       where: { id },
     });
@@ -41,7 +45,7 @@ export class CategoriesService {
     return this.categoriesRepository.delete({ id });
   }
 
-  async updateCategory(id: number, category: UpdateCategoryDto) {
+  async updateCategory(id: string, category: UpdateCategoryDto) {
     const categoryFound = await this.categoriesRepository.findOne({
       where: { id },
     });

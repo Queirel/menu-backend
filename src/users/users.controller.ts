@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersEntity } from './users.entity';
 import { UpdateUserDto } from './dto/update-user-dto';
@@ -40,7 +32,7 @@ export class UsersController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  getUser(@Param('id', ParseIntPipe) id: number) {
+  getUser(@Param('id') id: string) {
     return this.usersService.getUser(id);
   }
 
@@ -52,7 +44,7 @@ export class UsersController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
+  deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
   }
 
@@ -64,10 +56,7 @@ export class UsersController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  updateUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() user: UpdateUserDto,
-  ) {
+  updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
     return this.usersService.updateUser(id, user);
   }
 }

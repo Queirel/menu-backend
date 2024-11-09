@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -51,7 +50,7 @@ export class CategoriesController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  getCategory(@Param('id', ParseIntPipe) id: number) {
+  getCategory(@Param('id') id: string) {
     return this.categoriesService.getCategory(id);
   }
 
@@ -63,7 +62,7 @@ export class CategoriesController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  deleteCategory(@Param('id', ParseIntPipe) id: number) {
+  deleteCategory(@Param('id') id: string) {
     return this.categoriesService.deleteCategory(id);
   }
 
@@ -76,7 +75,7 @@ export class CategoriesController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   updateCategory(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() categories: UpdateCategoryDto,
   ) {
     return this.categoriesService.updateCategory(id, categories);

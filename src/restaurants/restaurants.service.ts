@@ -4,8 +4,8 @@ import { UpdateRestaurantDto } from './dto/update-restaurant-dto';
 import { RestaurantsEntity } from './restaurants.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { validate as isUUID } from 'uuid';
 import { UsersEntity } from 'src/users/users.entity';
-
 @Injectable()
 export class RestaurantsService {
   constructor(
@@ -31,7 +31,10 @@ export class RestaurantsService {
     return this.restaurantsRepository.find();
   }
 
-  async getRestaurant(id: number) {
+  async getRestaurant(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const restaurantFound = await this.restaurantsRepository.findOne({
       where: { id },
     });
@@ -41,7 +44,10 @@ export class RestaurantsService {
     return restaurantFound;
   }
 
-  async deleteRestaurant(id: number) {
+  async deleteRestaurant(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const restaurantFound = await this.restaurantsRepository.findOne({
       where: { id },
     });
@@ -51,7 +57,10 @@ export class RestaurantsService {
     return this.restaurantsRepository.delete({ id });
   }
 
-  async updateRestaurant(id: number, restaurant: UpdateRestaurantDto) {
+  async updateRestaurant(id: string, restaurant: UpdateRestaurantDto) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const restaurantFound = await this.restaurantsRepository.findOne({
       where: { id },
     });

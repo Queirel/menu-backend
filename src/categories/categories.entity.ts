@@ -18,8 +18,8 @@ export class CategoriesEntity {
     description: 'Category uuid',
     uniqueItems: true,
   })
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ApiProperty({
     example: 'Breakfast',

@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FoodsEntity } from './foods.entity';
 import { UpdateFoodDto } from './dto/update-food-dto';
 import { CreateFoodDto } from './dto/create-food-dto';
+import { validate as isUUID } from 'uuid';
 
 @Injectable()
 export class FoodsService {
@@ -21,7 +22,10 @@ export class FoodsService {
     return this.foodsRepository.find();
   }
 
-  async getFood(id: number) {
+  async getFood(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const foodFound = await this.foodsRepository.findOne({
       where: { id },
     });
@@ -31,7 +35,10 @@ export class FoodsService {
     return foodFound;
   }
 
-  async deleteFood(id: number) {
+  async deleteFood(id: string) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const foodFound = await this.foodsRepository.findOne({
       where: { id },
     });
@@ -41,7 +48,10 @@ export class FoodsService {
     return this.foodsRepository.delete({ id });
   }
 
-  async updateFood(id: number, food: UpdateFoodDto) {
+  async updateFood(id: string, food: UpdateFoodDto) {
+    if (!isUUID(id)) {
+      throw new NotFoundException(`Invalid id`);
+    }
     const foodFound = await this.foodsRepository.findOne({
       where: { id },
     });
